@@ -1,23 +1,25 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import Spinner from "./Spinner";
+import useGif from "../hooks/useGif";
 
 const API_KEY = process.env.REACT_APP_GIPHY_API_KEY;
 function Tag() {
-  const [randomGif, setRandomGif] = useState("");
-  const [loading, setLoading] = useState(false);
+//   const [randomGif, setRandomGif] = useState("");
+//   const [loading, setLoading] = useState(false);
   const [tag, setTag] = useState("car");
-  async function fetchData() {
-    setLoading(true);
-    const url = `https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=${tag}`;
-    const { data } = await axios.get(url);
-    const imageSource = data.data.images.downsized_large.url;
-    setRandomGif(imageSource);
-    setLoading(false);
-  }
-  useEffect(() => {
-    fetchData();
-  }, []);
+//   async function fetchData() {
+//     setLoading(true);
+//     const url = `https://api.giphy.com/v1/gifs/random?api_key=${API_KEY}&tag=${tag}`;
+//     const { data } = await axios.get(url);
+//     const imageSource = data.data.images.downsized_large.url;
+//     setRandomGif(imageSource);
+//     setLoading(false);
+//   }
+//   useEffect(() => {
+//     fetchData();
+//   }, []);
+const {randomGif, fetchData, loading} = useGif(tag);
   function clickHandler() {
     fetchData();
   }
@@ -25,7 +27,7 @@ function Tag() {
     setTag(event.target.value);
   }
   return (
-    <div className="bg-blue-500 md:w-[40%] w-full mx-auto h-[100%] mt-4 border border-green-900 rounded-md flex flex-col gap-y-1 text-center justify-between">
+    <div className="bg-blue-500 md:w-[40%] w-full mx-auto h-[100%] mt-4 border border-blue-900 rounded-md flex flex-col gap-y-1 text-center justify-between">
       <h1 className="underline mt-2  font-bold text-2xl uppercase">
         RANDOM {tag} GIF
       </h1>
